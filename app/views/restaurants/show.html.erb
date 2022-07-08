@@ -1,0 +1,72 @@
+<div class="card rest-con">
+ <h2 class="rest-name"><%= @restaurant.name%><h2>
+ <div class="card-body">
+   <h3 class="card-title"> Category -:<%= @restaurant.category%></h3>
+   <h3 class="card-title">Type -: <%= @restaurant.resturant_type%></h3>
+   <%= link_to "See Menu", restaurant_menus_path(@restaurant.id), class:"btn btn-danger" %>
+   <%= link_to "Book Table", new_restaurant_book_offline_path(@restaurant.id), class:"btn btn-secondary"%>
+ </div>
+</div>
+
+<% if current_user.isadmin?%>
+<div class="restaurant-admin-p">
+<h4 class="card-title">Admin Controls</h4>
+<div>
+<%= link_to "Update Information", edit_restaurant_path, class:"btn btn-secondary" %>
+<%= link_to "Delete Restaurant", restaurant_path(@restaurant),class:"btn btn-danger", data: {
+                    turbo_method: :delete,
+                    turbo_confirm: "Are you sure?"
+                  } %>
+ </div>                        
+ </div>        
+<% end %>
+
+<h3 class="card-title restaurant-admin-p"> Images </h3>
+
+<div class="container rest-pics">
+<% @restaurant.pictures.each do |picture|%>
+  <%= image_tag picture.variant(resize_to_limit: [300,300]).processed%>
+<% end %>
+</div>
+
+<h3 class="rest-name">Upload Pictures</h3>
+<%= form_with model: @restaurant do |form| %>
+  <div class="restaurant-admin-p">
+    <%= form.file_field :pictures, multiple: true, class:"btn btn-secondary form-pic", required:"required"%>
+    <%= form.submit "Upload Pictures", class:"btn btn-primary" %>
+  </div> 
+<% end %>
+
+<h3 class="rest-name"> Add review about the hotel-: </h3>
+<%= form_with model: [ @restaurant, @restaurant.reviews.build ] do |form| %>
+  <div class="form-group ratings">
+  <div>
+    <strong><%= form.label :ratings, "Add Review" %></strong>
+    <%= form.text_field :ratings, class:"form-control-md", required:"required" %>
+  </div>
+  <br/>
+    <%= form.submit "Submit", class:"btn btn-primary"  %>
+  
+<% end %>
+  </div>
+
+
+<h3 class="rest-name"> Reviews on Resturant </h3>
+<% @restaurant.reviews.each do |review| %>
+ <% if review.isApproved%>
+ <div class="card rest-con">
+   <h4 class="card-title">
+    <strong>Username:</strong>
+    <% @user= User.find(review.user_id)%>
+    <%= @user.username %>
+   </h4>
+
+   <h4 class="card-title">
+    <strong>Comment:</strong>
+    <%= review.ratings %>
+   </h4>
+   </div>
+  <% end %>
+<% end %>
+<br/>
+
