@@ -30,13 +30,8 @@ class ReviewsController < ApplicationController
         elsif logged_in? && !current_user.isadmin && @review.update(review_params) && @review.update(isApproved: false)
             redirect_to user_path(current_user.id)
         else
-          render login_path, status: :unprocessable_entity
+          redirect_to login_path
         end
-    end
-
-
-    def show
-        @user=User.find(current_user.id)
     end
 
     def destroy
