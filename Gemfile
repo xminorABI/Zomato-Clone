@@ -84,8 +84,8 @@ group :test do
   gem "capybara"
   gem "selenium-webdriver"
   gem "webdrivers"
-   gem 'shoulda-matchers'
-   gem "sqlite3", "~> 1.4"
+  gem 'shoulda-matchers'
+  #  gem "sqlite3"
 end
 
 group :production do
