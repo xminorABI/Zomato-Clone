@@ -56,11 +56,7 @@ class UsersController < ApplicationController
         end
       end
     end
-      def user_reviews
-        @user= User.find(current_user.id)
-        @reviews= Review.where(user_id: @user.id)
-      end
-
+    
       def appointments
         @book= Book.where(user_id:current_user.id)
       end

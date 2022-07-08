@@ -45,14 +45,14 @@ RSpec.describe "Reviews", type: :request do
       expect(response).to redirect_to(login_path)
     end
   end 
-  
+
   describe "Delete REVIEWS" do
-    it "Delete reviews" do
-      user=create(:user)
+    it "update review without logging in" do
+      user= create(:user)
       restaurant= create(:restaurant)
-      review= create(:review,user: user, restaurant: restaurant)
+      review= create(:review, user: user, restaurant: restaurant, ratings:"Testing ratings")
       delete '/reviews/'+review.id.to_s
-      expect(response).to have_http_status(303)
+      expect(response).to have_http_status(303)  
     end
-  end   
+  end  
 end

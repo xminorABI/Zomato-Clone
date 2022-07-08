@@ -29,7 +29,7 @@ RSpec.describe "Users", type: :request do
     it "User authenticated" do 
       user=create(:user)
       post sessions_url, params: { email: user.email, password: user.password}
-      get "/users/1/edit"
+      get "/users/"+user.id.to_s+"/edit"
       expect(response).to have_http_status(200)  
     end
   end  
@@ -48,7 +48,7 @@ RSpec.describe "Users", type: :request do
 
   end 
 
-  describe "Patch /edit" do
+  describe "Patch /update" do
     it "User not authenticated" do 
       user=create(:user)
       patch '/users/'+user.id.to_s, params:{user:{username:"Changed Name", password:"Abhi",password_confirmation:"Abhi"}}
@@ -58,10 +58,32 @@ RSpec.describe "Users", type: :request do
       user=create(:user)
       post sessions_url, params: { email: user.email, password: user.password}
       patch '/users/'+user.id.to_s, params:{user:{username:"Changed Name", password:"Abhi",password_confirmation:"Abhi"}}
+      expect(response).to redirect_to(user_path(user)) 
+    end
+  end 
+
+  describe "User Reviews" do
+    it "Check Reviews" do
+      user=create(:user)
+      restaurant= create(:restaurant)
+      review= create(:review, user: user, restaurant: restaurant, ratings:"Testing ratings")
+      post sessions_url, params: { email: user.email, password: user.password}
+      get '/users/'+user.id.to_s+'/reviews'
       expect(response).to have_http_status(200)  
     end
+  end
 
-  end 
+
+  describe "User Bookings" do
+    it "User Bookings" do
+      user=create(:user, email:"asasas@gmail.com")
+      restaurant= create(:restaurant)
+      book= create(:book, user: user, restaurant: restaurant)
+      post sessions_url, params: { email: user.email, password: user.password}
+      get '/user/'+user.id.to_s+'/bookings'
+      expect(response).to have_http_status(200)
+    end
+  end   
 end
 
 
