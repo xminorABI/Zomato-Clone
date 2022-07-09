@@ -18,10 +18,9 @@ class UsersController < ApplicationController
         end  
         
         @user=User.new(user_params)
-        binding.pry
+        @user.email=@user.email.downcase
         if @user.valid?
             @user.save
-            binding.pry
             redirect_to @user
         else
             redirect_to signup_path

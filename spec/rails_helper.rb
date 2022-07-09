@@ -1,5 +1,10 @@
 require 'simplecov'
-SimpleCov.start
+SimpleCov.start do
+  add_filter "/config/"
+  add_filter "/spec/"
+  add_group  "Model", "app/models"
+  add_group  "Controllers", "app/controllers"
+end  
 
 # Previous content of test helper now starts here
 # This file is copied to spec/ when you run 'rails generate rspec:install'
