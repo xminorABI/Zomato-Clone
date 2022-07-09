@@ -90,7 +90,7 @@ group :test do
 end
 
 group :production do
- gem 'pg', '~> 1.4', '>= 1.4.1'
+gem 'sqlite3', '~> 1.3', '>= 1.3.11'
 end
 
 gem 'simplecov', require: false, group: :test
