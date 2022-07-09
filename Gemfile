@@ -71,7 +71,7 @@ end
 group :development do
   # Use console on exceptions pages [https://github.com/rails/web-console]
   gem "web-console"
-  gem "sqlite3", "~> 1.4"
+  gem "sqlite3"
   # Add speed badges [https://github.com/MiniProfiler/rack-mini-profiler]
   # gem "rack-mini-profiler"
 
@@ -89,7 +89,7 @@ group :test do
 end
 
 group :production do
- gem 'pg'
+ gem 'sqlite3'
 end
 
 gem 'simplecov', require: false, group: :test
