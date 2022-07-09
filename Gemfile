@@ -77,6 +77,7 @@ group :development do
 
   # Speed up commands on slow machines / big apps [https://github.com/rails/spring]
   # gem "spring"
+  gem 'sqlite3', '~> 1.3', '>= 1.3.11'
 end 
 
 group :test do
@@ -89,7 +90,7 @@ group :test do
 end
 
 group :production do
- gem 'sqlite3',"~> 1.4"
+ gem 'pg', '~> 1.4', '>= 1.4.1'
 end
 
 gem 'simplecov', require: false, group: :test
