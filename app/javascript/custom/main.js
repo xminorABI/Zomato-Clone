@@ -1,6 +1,5 @@
+
 function initMap() {
-    // The location of Uluru
-  
   let lati= document.getElementById("restId1")
   let longi=document.getElementById("restId2")
   const uluru = {lat: parseFloat(lati.textContent), lng: parseFloat(longi.textContent)}
@@ -14,7 +13,6 @@ function initMap() {
       position: uluru,
       map: map,
     });
-  
   }
   
   window.initMap = initMap;
