@@ -27,7 +27,7 @@ RSpec.describe 'Reviews', type: :request do
 
   describe 'CREATE REVIEWS' do
     it 'new review' do
-      user = create(:user, email: 'Tests@gmail.com')
+      user = create(:user)
       restaurant = create(:restaurant)
       post sessions_url, params: { email: user.email, password: user.password }
       post '/reviews', params: { review: { ratings: 'Check' }, restaurant_id: restaurant.id }
